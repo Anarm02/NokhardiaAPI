@@ -1,0 +1,6 @@
+@NokhardiaAPI_HostAddress = http://localhost:5064
+
+GET {{NokhardiaAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
