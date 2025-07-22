@@ -1,0 +1,8 @@
+# Ignore build output
+bin/
+obj/
+out/
+
+# Ignore GCS credentials
+Credentials/
+.vs/
