@@ -12,9 +12,17 @@ namespace NokhardiaAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
-            builder.Services.AddControllers();
+			// Add services to the container.
+			var credentialsBase64 = Environment.GetEnvironmentVariable("GCS_CREDENTIALS_BASE64");
+			if (!string.IsNullOrEmpty(credentialsBase64))
+			{
+				var jsonBytes = Convert.FromBase64String(credentialsBase64);
+				var credentialsPath = Path.Combine(Directory.GetCurrentDirectory(), "Credentials");
+				Directory.CreateDirectory(credentialsPath);
+				var fullPath = Path.Combine(credentialsPath, "nokhardiaKey.json");
+				File.WriteAllBytes(fullPath, jsonBytes);
+			}
+			builder.Services.AddControllers();
 			builder.Services.AddDbContext<AppDbContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 			var gcsConfig = builder.Configuration.GetSection("GoogleCloudStorage").Get<GCSOptions>();
