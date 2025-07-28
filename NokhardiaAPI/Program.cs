@@ -25,7 +25,7 @@ namespace NokhardiaAPI
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
-			var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+			var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 			app.Urls.Add($"http://*:{port}");
 
 			app.MapGet("/", () => "API işləyir!");
